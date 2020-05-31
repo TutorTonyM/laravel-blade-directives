@@ -37,9 +37,42 @@ class AttributesHelper
         return $this->attributeAndValue($parametersArray, 'class');
     }
 
+    public function name($parametersArray)
+    {
+        return $this->attributeAndValue($parametersArray, 'name');
+    }
+
+    public function placeholder($parametersArray)
+    {
+        return $this->attributeAndValue($parametersArray, 'placeholder');
+    }
+
+    public function value($parametersArray)
+    {
+        return $this->attributeAndValue($parametersArray, 'value');
+    }
+
+    public function type($parametersArray)
+    {
+        return $this->attributeAndValue($parametersArray, 'type');
+    }
+
     public function id($parametersArray, $parameter = 'id')
     {
         return $this->attributeAndValue($parametersArray, $parameter);
+    }
+
+    public function autoId($parametersArray)
+    {
+        $id = isset($parametersArray['id']) ? $parametersArray['id'] : false;
+        if ($id && !is_null($value = $this->helper->nullOrValue($id))){
+            return "id='$value'";
+        }
+        $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
+        if ($section && !is_null($value = $this->helper->nullOrValue($section))){
+            return "id='$value'";
+        }
+        return null;
     }
 
     public function attribute($parametersArray)
@@ -58,7 +91,7 @@ class AttributesHelper
         return null;
     }
 
-    public function attributeAndValue($parametersArray, $parameter, $default = null, $remove = null)
+    private function attributeAndValue($parametersArray, $parameter, $default = null, $remove = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         if (!$section && !is_null($default)) $section = $default;
@@ -70,7 +103,7 @@ class AttributesHelper
         return null;
     }
 
-    public function verbatim($parametersArray, $parameter, $isSwitch = false, $switchCheck = true)
+    private function verbatim($parametersArray, $parameter, $isSwitch = false, $switchCheck = true)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
 

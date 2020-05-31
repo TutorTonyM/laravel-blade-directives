@@ -18,6 +18,7 @@
         "ttm-forms"
     ],
     "homepage": "https://github.com/tutortonym/laravel-blade-directives",
+    "license": "MIT",
     "authors": [
         {
             "name": "Tutor Tony M",

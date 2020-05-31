@@ -3,7 +3,6 @@
 
 namespace TutorTonyM\BladeDirectives\DirectiveClasses;
 
-use Illuminate\Support\Str;
 
 class FormDirective extends BaseDirective
 {
