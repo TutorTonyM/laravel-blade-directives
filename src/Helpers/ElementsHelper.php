@@ -15,7 +15,7 @@ class ElementsHelper
         $this->attributes = new AttributesHelper();
     }
 
-    public function title($parametersArray)
+    public function title(array $parametersArray)
     {
         $section = isset($parametersArray['title']) ? $parametersArray['title'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
@@ -45,7 +45,7 @@ class ElementsHelper
         return null;
     }
 
-    public function spoof($parametersArray)
+    public function spoof(array $parametersArray)
     {
         $section = isset($parametersArray['method']) ? $parametersArray['method'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
@@ -69,7 +69,7 @@ class ElementsHelper
         return null;
     }
 
-    public function csrf($parametersArray, $autoCsrf)
+    public function csrf(array $parametersArray, bool $autoCsrf)
     {
         $section = isset($parametersArray['csrf']) ? $parametersArray['csrf'] : false;
         if ($section && $this->helper->isOff($section)){

@@ -1,6 +1,8 @@
 {
     "name": "tutortonym/laravel-blade-directives",
     "description": "Laravel blade directives to create forms with ease.",
+    "license": "MIT",
+    "type": "package",
 	"keywords": [
         "ttm",
         "tutortonym",
@@ -18,7 +20,6 @@
         "ttm-forms"
     ],
     "homepage": "https://github.com/tutortonym/laravel-blade-directives",
-    "license": "MIT",
     "authors": [
         {
             "name": "Tutor Tony M",

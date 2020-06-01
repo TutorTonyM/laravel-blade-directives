@@ -20,22 +20,47 @@ The package will automatically register itself and it will be ready to use.
 ## Available Directives
 
 * @form(optional)
-  * Creates an html form opening tag
-  * Creates a hidden input for the Laravel CSRF token and adds it to the form
-  * Takes an optional parameter (a single string separated by commas to set options. Example: `@form(option1,option2,option3,etc...)`)
-  * Has a total of seven options in the following order:
-    * 1- action = Sets the value for the action attribute on the form tag (it can be a route, internal url, or external url)
-    * 2- title = Creates an h1 tag and adds it to the form as its title
-    * 3- classes = Adds the provided class or classes to the form tag
-    * 4- id = Adds the provided id to the form tag
-    * 5- attributes = Includes any additional attributes to the form tag
-    * 6- method = Allows the user to change the method attribute on the form tag to GET
-    * 7- csrf = Allows the user to disable the auto-creation of the CSRF token hidden field
+    * Creates an HTML form opening tag: `<form>`
+    * Creates a hidden input for the Laravel CSRF token and adds it to the form
+    * Takes an optional parameter (a single string separated by commas to set options. Example: `@form(option1,option2,option3,etc...)`)
+    * Has a total of seven options in the following order:
+        * 1- action = Sets the value for the action attribute on the form tag (it can be a route, internal url, or external url)
+        * 2- title = Creates an h1 tag and adds it to the form as its title
+        * 3- classes = Adds the provided class or classes to the form tag
+        * 4- id = Adds the provided id to the form tag
+        * 5- attributes = Includes any additional attributes to the form tag
+        * 6- method = Allows the user to change the method attribute on the form tag to GET
+        * 7- csrf = Allows the user to disable the auto-creation of the CSRF token hidden field
     
 * @endform
   * Creates an html form closing tag: `</form>`
   
-More directives coming soon on the upcoming versions.
+* @input(optional)
+    * Creates an HTML input tag: `<input>`
+    * Creates the PHP logic to handle validation errors and it adds it below the input field
+    * Takes an optional parameter (a single string separated by commas to set options. Example: `@input(option1,option2,option3,etc...)`)
+    * Has a total of seven options in the following order:
+        * 1- name = Sets the value for the name attribute
+        * 2- placeholder = Sets the value for the placeholder attribute
+        * 3- classes = Adds the provided class or classes
+        * 4- id = Sets the value for the id attribute
+        * 5- attributes = Includes any additional attributes
+        * 6- value = Sets the value for the value attribute. By default, it adds the PHP logic to display the old form value in case of validation fail.
+        * 7- type = Sets the value for the type attribute. By default, it is set to "text"
+    * It has different alternate versions
+        * @number(optional) = which sets the type attribute to "number"
+        * @email(optional) = which sets the type attribute to "email"
+        * @hidden(optional) = which sets the type attribute to "hidden"
+        * @password(optional) = which sets the type attribute to "password"
+    * It also has versions that make the fields required
+        * @input_req(optional)
+        * @number_req(optional)
+        * @email_req(optional)
+        * @hidden_req(optional)
+        * @password_req(optional)
+        
+  
+Select directive coming in the versions. `<select>`
 
 
 ## How to Use

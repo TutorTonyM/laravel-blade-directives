@@ -14,7 +14,7 @@ class AttributesHelper
         $this->helper = new GeneralHelper();
     }
 
-    public function action($parametersArray)
+    public function action(array $parametersArray)
     {
         $section = isset($parametersArray['action']) ? $parametersArray['action'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
@@ -25,44 +25,44 @@ class AttributesHelper
         return null;
     }
 
-    public function singleId($value)
+    public function singleId(string $value)
     {
         $array = explode(' ', $value);
         $id = trim($array[0]);
         return isset($id) ? $id : null;
     }
 
-    public function class($parametersArray)
+    public function class(array $parametersArray)
     {
         return $this->attributeAndValue($parametersArray, 'class');
     }
 
-    public function name($parametersArray)
+    public function name(array $parametersArray)
     {
         return $this->attributeAndValue($parametersArray, 'name');
     }
 
-    public function placeholder($parametersArray)
+    public function placeholder(array $parametersArray)
     {
         return $this->attributeAndValue($parametersArray, 'placeholder');
     }
 
-    public function value($parametersArray)
+    public function value(array $parametersArray)
     {
         return $this->attributeAndValue($parametersArray, 'value');
     }
 
-    public function type($parametersArray)
+    public function type(array $parametersArray)
     {
         return $this->attributeAndValue($parametersArray, 'type');
     }
 
-    public function id($parametersArray, $parameter = 'id')
+    public function id(array $parametersArray)
     {
-        return $this->attributeAndValue($parametersArray, $parameter);
+        return $this->attributeAndValue($parametersArray, 'id');
     }
 
-    public function autoId($parametersArray)
+    public function autoId(array $parametersArray)
     {
         $id = isset($parametersArray['id']) ? $parametersArray['id'] : false;
         if ($id && !is_null($value = $this->helper->nullOrValue($id))){
@@ -75,12 +75,12 @@ class AttributesHelper
         return null;
     }
 
-    public function attribute($parametersArray)
+    public function attribute(array $parametersArray)
     {
         return $this->verbatim($parametersArray, 'attribute');
     }
 
-    public function method($parametersArray)
+    public function method(array $parametersArray)
     {
         $section = isset($parametersArray['method']) ? $parametersArray['method'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
@@ -91,7 +91,7 @@ class AttributesHelper
         return null;
     }
 
-    private function attributeAndValue($parametersArray, $parameter, $default = null, $remove = null)
+    private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         if (!$section && !is_null($default)) $section = $default;
@@ -103,7 +103,7 @@ class AttributesHelper
         return null;
     }
 
-    private function verbatim($parametersArray, $parameter, $isSwitch = false, $switchCheck = true)
+    private function verbatim(array $parametersArray, string $parameter, bool $isSwitch = false, bool $switchCheck = true)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class GeneralHelper
 {
 //    Verified
-    public function nullOrValue($value)
+    public function nullOrValue(string $value)
     {
         $item = $value ?? null;
         $item = trim($item);
@@ -16,7 +16,7 @@ class GeneralHelper
         return $item;
     }
 
-    public function isOff($value)
+    public function isOff(string $value)
     {
         $response = false;
         $offSwitches = ['0', 'false', 'False', 'FALSE', 'off', 'Off', 'OFF', 'no', 'No', 'NO'];
@@ -24,7 +24,7 @@ class GeneralHelper
         return $response;
     }
 
-    public function isOn($value)
+    public function isOn(string $value)
     {
         $response = false;
         $offSwitches = ['1', 'true', 'True', 'TRUE', 'on', 'On', 'ON', 'yes', 'Yes', 'YES'];
@@ -32,7 +32,7 @@ class GeneralHelper
         return $response;
     }
 
-    public function between($string, $start, $end = null)
+    public function between(string $string, string $start, string $end = null)
     {
         $end = $end ?? $start;
         $ini = strpos($string, $start);
@@ -44,7 +44,7 @@ class GeneralHelper
         return $result;
     }
 
-    public function htmlParametersAssigner($givenParametersArray, $validParametersArray, $append = null)
+    public function htmlParametersAssigner(array $givenParametersArray, array $validParametersArray, string $append = null)
     {
         $array = [];
 
@@ -82,12 +82,12 @@ class GeneralHelper
         return $result;
     }
 
-    private function escapeEquals($string)
+    private function escapeEquals(string $string)
     {
         return str_replace('\=', '^', $string);
     }
 
-    private function insertEquals($string){
+    private function insertEquals(string $string){
         return str_replace('^', '=', trim($string));
     }
 }
