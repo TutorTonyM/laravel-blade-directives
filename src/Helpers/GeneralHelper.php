@@ -7,7 +7,15 @@ use Illuminate\Support\Str;
 
 class GeneralHelper
 {
-//    Verified
+    protected $elements;
+    protected $attributes;
+
+    public function __construct()
+    {
+        $this->elements = new ElementsHelper();
+        $this->attributes = new AttributesHelper();
+    }
+
     public function nullOrValue(string $value)
     {
         $item = $value ?? null;
@@ -58,6 +66,7 @@ class GeneralHelper
             if ($secondPart && in_array($firstPart, $validParametersArray)){
                 if ($firstPart == 'classes') $firstPart = 'class';
                 if ($firstPart == 'attributes') $firstPart = 'attribute';
+                if ($firstPart == 'placeholder') $firstPart = 'label';
                 if ($firstPart == 'options') $firstPart = 'option';
                 $array[$firstPart.$append] = $secondPart;
             }
@@ -77,6 +86,34 @@ class GeneralHelper
 
         foreach ($attributes as $attribute) {
             if (!is_null($attribute)) $result .= ' '.$attribute;
+        }
+
+        return $result;
+    }
+
+    public function labeling(array $parametersArray, string $id, string $labeling, bool $autoLabel)
+    {
+        $result = [];
+
+        if ($labeling == 'label'){
+            $result['label'] = $autoLabel
+                ? $this->elements->autoLabel($parametersArray, $id)
+                : $this->elements->Label($parametersArray, $id);
+            $result['placeholder'] = null;
+        }
+        elseif($labeling == 'both'){
+            $result['label'] = $autoLabel
+                ? $this->elements->autoLabel($parametersArray, $id)
+                : $this->elements->Label($parametersArray, $id);
+            $result['placeholder'] = $autoLabel
+                ? $this->attributes->autoPlaceholder($parametersArray)
+                : $this->attributes->placeholder($parametersArray);
+        }
+        else{
+            $result['label'] = null;
+            $result['placeholder'] = $autoLabel
+                ? $this->attributes->autoPlaceholder($parametersArray)
+                : $this->attributes->placeholder($parametersArray);
         }
 
         return $result;

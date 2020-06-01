@@ -29,7 +29,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Create the id Attribute Automatically
+    | Create the id Attribute Automatically (When no Value is Given)
     |--------------------------------------------------------------------------
     |
     | This value enables or disables the auto feature for the id attribute.
@@ -42,6 +42,37 @@ return [
     |
     */
     'auto_id' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Labeling the Input Element (label, placeholder or both)
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the labeling preference for input element.
+    |
+    | placeholder = will use the label option in the placeholder attribute.
+    | label = will use the label option in a label element.
+    | both = will do both the placeholder and label.
+    | Note: Any value other than the ones above will default to "placeholder".
+    |
+    | It does not apply to <form> tags.
+    |
+    */
+    'labeling' => 'placeholder',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Label the Input Automatically (When no Value is Given)
+    |--------------------------------------------------------------------------
+    |
+    | This value enables or disables the auto feature for labeling inputs.
+    | It will use the value of the name attribute. If no name value is provided
+    | it will not do any labeling.
+    |
+    | It does not apply to <form> tags.
+    |
+    */
+    'auto_label' => true,
 
     /*
    |--------------------------------------------------------------------------

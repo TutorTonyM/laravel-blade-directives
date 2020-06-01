@@ -42,11 +42,6 @@ class AttributesHelper
         return $this->attributeAndValue($parametersArray, 'name');
     }
 
-    public function placeholder(array $parametersArray)
-    {
-        return $this->attributeAndValue($parametersArray, 'placeholder');
-    }
-
     public function value(array $parametersArray)
     {
         return $this->attributeAndValue($parametersArray, 'value');
@@ -71,6 +66,24 @@ class AttributesHelper
         $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
             return "id='$value'";
+        }
+        return null;
+    }
+
+    public function placeholder(array $parametersArray)
+    {
+        return $this->attributeAndValue($parametersArray, 'label');
+    }
+
+    public function autoPlaceholder(array $parametersArray)
+    {
+        $placeholder = isset($parametersArray['placeholder']) ? $parametersArray['placeholder'] : false;
+        if ($placeholder && !is_null($value = $this->helper->nullOrValue($placeholder))){
+            return "placeholder='$value'";
+        }
+        $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
+        if ($section && !is_null($value = $this->helper->nullOrValue($section))){
+            return "placeholder='$value'";
         }
         return null;
     }

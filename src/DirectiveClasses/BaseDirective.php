@@ -17,6 +17,8 @@ class BaseDirective
     protected $validation;
     protected $fullMode;
     protected $autoId;
+    protected $labeling;
+    protected $autoLabel;
 
     public function __construct()
     {
@@ -26,5 +28,7 @@ class BaseDirective
         $this->validation = new ValidationHelper();
         $this->fullMode = config('ttm-blade-directives.full');
         $this->autoId = config('ttm-blade-directives.auto_id');
+        $this->labeling = config('ttm-blade-directives.labeling');
+        $this->autoLabel = config('ttm-blade-directives.auto_label');
     }
 }

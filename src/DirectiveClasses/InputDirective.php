@@ -11,12 +11,14 @@ class InputDirective extends BaseDirective
         $stringIsNotEmpty = $string == '' ? false : true;
         $inputType = "type='$type'";
         $required = $isRequired ? "required" : null;
+        $label = null;
+        $placeholder = null;
         $validationError = null;
         $data = $inputType;
 
         if ($stringIsNotEmpty){
             if ($this->fullMode){
-                $validHtmlParameters = ['name', 'placeholder', 'class', 'id', 'attribute', 'value', 'type', 'classes', 'attributes'];
+                $validHtmlParameters = ['name', 'label', 'class', 'id', 'attribute', 'value', 'type', 'classes', 'attributes', 'placeholder'];
                 $validLogicParameters = ['variable', 'validation'];
 
                 $stringArray = explode('|', $string);
@@ -28,10 +30,12 @@ class InputDirective extends BaseDirective
                 $stringSections['type'] = isset($stringSections['type']) ? $stringSections['type'] : $type;
                 if ($hasLogic) $stringSections = $stringSections + $this->helper->htmlParametersAssigner($givenLogicParameters, $validLogicParameters);
 
-                $name = $this->attributes->name($stringSections);
-                $placeholder = $this->attributes->placeholder($stringSections);
-                $class = $this->attributes->class($stringSections);
                 $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);
+                $labeling = $this->helper->labeling($stringSections, $id, $this->labeling, $this->autoLabel);
+                $label = $labeling['label'];
+                $placeholder = $labeling['placeholder'];
+                $name = $this->attributes->name($stringSections);
+                $class = $this->attributes->class($stringSections);
                 $attribute = $this->attributes->attribute($stringSections);
                 $value = $this->validation->oldValueInput($stringSections);
                 $inputType = isset($stringSections['type']) ? $this->attributes->type($stringSections) : $inputType;
@@ -50,6 +54,7 @@ class InputDirective extends BaseDirective
         }
 
         return "
+            $label
             <input $data>
             $validationError
         ";
