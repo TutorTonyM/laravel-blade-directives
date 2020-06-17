@@ -6,7 +6,7 @@ namespace TutorTonyM\BladeDirectives\DirectiveClasses;
 
 class InputDirective extends BaseDirective
 {
-    public function make(string $string, bool $isRequired = false, string $type = 'text')
+    public function make(string $string, bool $isRequired = false, string $type = 'text', string $wrapper = null)
     {
         $stringIsNotEmpty = $string == '' ? false : true;
         $inputType = "type='$type'";
@@ -15,6 +15,10 @@ class InputDirective extends BaseDirective
         $placeholder = null;
         $validationError = null;
         $data = $inputType;
+        $wrapperTags = $this->helper->wrapper($wrapper);
+        $wrapperStart = $wrapperTags['start'];
+        $wrapperEnd = $wrapperTags['end'];
+        $wrapperClass = $wrapperTags['class'];
 
         if ($stringIsNotEmpty){
             $validHtmlParameters = ['name', 'label', 'class', 'id', 'attribute', 'value', 'type', 'classes', 'attributes', 'placeholder'];
@@ -27,6 +31,7 @@ class InputDirective extends BaseDirective
 
             $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
             $stringSections['type'] = isset($stringSections['type']) ? $stringSections['type'] : $type;
+            $stringSections['class'] = $wrapperClass ?? null;
             if ($hasLogic) $stringSections = $stringSections + $this->helper->htmlParametersAssigner($givenLogicParameters, $validLogicParameters);
 
             $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);
@@ -43,9 +48,11 @@ class InputDirective extends BaseDirective
         }
 
         return "
+            $wrapperStart
             $label
             <input $data>
             $validationError
+            $wrapperEnd
         ";
     }
 }

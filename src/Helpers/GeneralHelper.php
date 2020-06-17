@@ -82,6 +82,23 @@ class GeneralHelper
         return $result;
     }
 
+    public function wrapper(string $wrapper = null)
+    {
+        $wrapperTags = [];
+        switch ($wrapper){
+            case 'b4':
+                $wrapperTags['start'] = '<div class="form-group">';
+                $wrapperTags['end'] = '</div>';
+                $wrapperTags['class'] = 'form-control ';
+                break;
+            default:
+                $wrapperTags['start'] = null;
+                $wrapperTags['end'] = null;
+                $wrapperTags['class'] = null;
+        }
+        return $wrapperTags;
+    }
+
     private function escapeEquals(string $string)
     {
         return str_replace('\=', '^', $string);

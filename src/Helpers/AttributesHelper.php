@@ -77,7 +77,7 @@ class AttributesHelper
 
     public function autoPlaceholder(array $parametersArray)
     {
-        $placeholder = isset($parametersArray['placeholder']) ? $parametersArray['placeholder'] : false;
+        $placeholder = isset($parametersArray['label']) ? $parametersArray['label'] : false;
         if ($placeholder && !is_null($value = $this->helper->nullOrValue($placeholder))){
             return "placeholder='$value'";
         }
