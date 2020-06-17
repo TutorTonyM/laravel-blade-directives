@@ -18,27 +18,21 @@ class FormDirective extends BaseDirective
         $data = $method;
 
         if ($stringIsNotEmpty){
-            if ($this->fullMode){
-                $validHtmlParameters = ['action', 'title', 'class', 'id', 'attribute', 'method', 'csrf', 'classes', 'attributes'];
-                $givenHtmlParameters = explode(',', $string);
+            $validHtmlParameters = ['action', 'title', 'class', 'id', 'attribute', 'method', 'csrf', 'classes', 'attributes'];
+            $givenHtmlParameters = explode(',', $string);
 
-                $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
+            $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
 
-                $action = $this->attributes->action($stringSections);
-                $title = $this->elements->title($stringSections);
-                $class = $this->attributes->class($stringSections);
-                $id = $this->attributes->id($stringSections);
-                $attribute = $this->attributes->attribute($stringSections);
-                $method = isset($stringSections['method']) ? $this->attributes->method($stringSections) : $method;
-                $spoof = $this->elements->spoof($stringSections);
-                $csrf = $this->elements->csrf($stringSections, $autoCsrf);
+            $action = $this->attributes->action($stringSections);
+            $title = $this->elements->title($stringSections);
+            $class = $this->attributes->class($stringSections);
+            $id = $this->attributes->id($stringSections);
+            $attribute = $this->attributes->attribute($stringSections);
+            $method = isset($stringSections['method']) ? $this->attributes->method($stringSections) : $method;
+            $spoof = $this->elements->spoof($stringSections);
+            $csrf = $this->elements->csrf($stringSections, $autoCsrf);
 
-                $data = $this->helper->attributePlacer([$id, $class, $action, $method, $attribute]);
-            }
-            else{
-                $data = $string;
-            }
-
+            $data = $this->helper->attributePlacer([$id, $class, $action, $method, $attribute]);
         }
 
         return "

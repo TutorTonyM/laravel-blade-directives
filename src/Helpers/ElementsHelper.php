@@ -148,6 +148,12 @@ class ElementsHelper
                 : $this->Label($parametersArray, $id);
             $result['placeholder'] = null;
         }
+        elseif($labeling == 'placeholder'){
+            $result['label'] = null;
+            $result['placeholder'] = $autoLabel
+                ? $this->attributes->autoPlaceholder($parametersArray)
+                : $this->attributes->placeholder($parametersArray);
+        }
         elseif($labeling == 'both'){
             $result['label'] = $autoLabel
                 ? $this->autoLabel($parametersArray, $id)
@@ -157,10 +163,8 @@ class ElementsHelper
                 : $this->attributes->placeholder($parametersArray);
         }
         else{
+            $result['placeholder'] = null;
             $result['label'] = null;
-            $result['placeholder'] = $autoLabel
-                ? $this->attributes->autoPlaceholder($parametersArray)
-                : $this->attributes->placeholder($parametersArray);
         }
 
         return $result;

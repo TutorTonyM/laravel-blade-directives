@@ -3,20 +3,6 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Package Mode
-    |--------------------------------------------------------------------------
-    |
-    | This value enables or disables full mode.
-    | Full mode takes a comma separated string with one
-    | argument for each attribute in the element.
-    | Light mode takes a non separated string and
-    | displays the attributes verbatim.
-    |
-    */
-    'full' => true,
-
-    /*
-    |--------------------------------------------------------------------------
     | CSRF Token
     |--------------------------------------------------------------------------
     |
@@ -51,14 +37,15 @@ return [
     | This value sets the labeling preference for input element.
     |
     | placeholder = will use the label option in the placeholder attribute.
+    | placeholder = will use the label option in the placeholder attribute.
     | label = will use the label option in a label element.
     | both = will do both the placeholder and label.
-    | Note: Any value other than the ones above will default to "placeholder".
+    | Note: Any value other than the ones above will result in no label at all.
     |
     | It does not apply to <form> tags.
     |
     */
-    'labeling' => 'both',
+    'labeling' => 'placeholder',
 
     /*
     |--------------------------------------------------------------------------
