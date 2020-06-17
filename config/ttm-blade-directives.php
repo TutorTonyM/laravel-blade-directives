@@ -58,7 +58,7 @@ return [
     | It does not apply to <form> tags.
     |
     */
-    'labeling' => 'placeholder',
+    'labeling' => 'both',
 
     /*
     |--------------------------------------------------------------------------

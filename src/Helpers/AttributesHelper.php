@@ -83,6 +83,7 @@ class AttributesHelper
         }
         $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
+            $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
             return "placeholder='$value'";
         }
         return null;

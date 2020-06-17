@@ -3,6 +3,7 @@
 
 namespace TutorTonyM\BladeDirectives\Helpers;
 
+use Illuminate\Support\Str;
 
 class ElementsHelper
 {
@@ -100,6 +101,7 @@ class ElementsHelper
         $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
             $id = $this->helper->between($id, '"');
+            $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
             return "<label for='$id'>$value</label>";
         }
         return null;
@@ -142,14 +144,14 @@ class ElementsHelper
 
         if ($labeling == 'label'){
             $result['label'] = $autoLabel
-                ? $this->elements->autoLabel($parametersArray, $id)
-                : $this->elements->Label($parametersArray, $id);
+                ? $this->autoLabel($parametersArray, $id)
+                : $this->Label($parametersArray, $id);
             $result['placeholder'] = null;
         }
         elseif($labeling == 'both'){
             $result['label'] = $autoLabel
-                ? $this->elements->autoLabel($parametersArray, $id)
-                : $this->elements->Label($parametersArray, $id);
+                ? $this->autoLabel($parametersArray, $id)
+                : $this->Label($parametersArray, $id);
             $result['placeholder'] = $autoLabel
                 ? $this->attributes->autoPlaceholder($parametersArray)
                 : $this->attributes->placeholder($parametersArray);
