@@ -79,7 +79,7 @@ return [
    | Validation Error Class for the Message
    |--------------------------------------------------------------------------
    |
-   | This value is the class that will be added to the <spam> containing
+   | This value is the class that will be added to the <span> containing
    | the validation error message. It can be modified to match the expected
    | validation error class of different CSS frameworks such as Bootstrap.
    |

@@ -31,7 +31,7 @@ class InputDirective extends BaseDirective
                 if ($hasLogic) $stringSections = $stringSections + $this->helper->htmlParametersAssigner($givenLogicParameters, $validLogicParameters);
 
                 $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);
-                $labeling = $this->helper->labeling($stringSections, $id, $this->labeling, $this->autoLabel);
+                $labeling = $this->elements->labeling($stringSections, $id, $this->labeling, $this->autoLabel);
                 $label = $labeling['label'];
                 $placeholder = $labeling['placeholder'];
                 $name = $this->attributes->name($stringSections);
