@@ -101,11 +101,29 @@ class GeneralHelper
         return $wrapperTags;
     }
 
-    public function wrapperClass($name, $class)
+    public function wrapperClass(array $givenParametersArray, string $class = null)
     {
-        return isset($name)
-            ? $class . '<?php if($errors->has("'.$name.'")){ echo "is-invalid "; } ?>'
-            : $class;
+
+        if(!is_null($class) && isset($givenParametersArray['class']) && isset($givenParametersArray['name'])){
+            return $class
+                . '<?php if($errors->has("'.$givenParametersArray['name'].'")){ echo "is-invalid "; } ?>'
+                . $givenParametersArray['class'];
+        }
+        elseif(!is_null($class) && isset($givenParametersArray['name'])){
+            return $class . '<?php if($errors->has("'.$givenParametersArray['name'].'")){ echo "is-invalid "; } ?>';
+        }
+        elseif(!is_null($class) && isset($givenParametersArray['class'])){
+            return $class . $givenParametersArray['class'];
+        }
+        elseif(!is_null($class)){
+            return $class;
+        }
+        elseif (isset($givenParametersArray['class'])){
+            return $givenParametersArray['class'];
+        }
+        else{
+            return null;
+        }
     }
 
     private function escapeEquals(string $string)

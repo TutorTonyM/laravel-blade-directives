@@ -88,12 +88,12 @@ class ElementsHelper
     public function label(array $parametersArray, bool $isRequired, string $id = null)
     {
         $addon = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
-        $id = $this->helper->between($id, '"');
+        $id = is_null($id) ? null : $this->helper->between($id, "'");
         $for = is_null($id) ? null : "for='$id'";
         return $this->elementMaker($parametersArray, 'label', 'label', $for, $addon);
     }
 
-    public function autoLabel(array $parametersArray, bool $isRequired, string $id)
+    public function autoLabel(array $parametersArray, bool $isRequired, string $id = null)
     {
         $required = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
         $label = isset($parametersArray['label']) ? $parametersArray['label'] : false;
@@ -102,7 +102,7 @@ class ElementsHelper
         }
         $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
-            $id = $this->helper->between($id, '"');
+            $id = $this->helper->between($id, "'");
             $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
             return "<label for='$id'>$value$required</label>";
         }
@@ -140,7 +140,7 @@ class ElementsHelper
         return null;
     }
 
-    public function labeling(array $parametersArray, string $id, string $labeling, bool $autoLabel, bool $isRequired)
+    public function labeling(array $parametersArray, string $labeling, bool $autoLabel, bool $isRequired, string $id = null)
     {
         $result = [];
 

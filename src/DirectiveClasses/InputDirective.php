@@ -12,7 +12,6 @@ class InputDirective extends BaseDirective
         $inputType = "type='$type'";
         $required = $isRequired ? "required" : null;
         $label = null;
-        $placeholder = null;
         $validationError = null;
         $data = $inputType;
         $wrapperTags = $this->helper->wrapper($wrapper);
@@ -32,11 +31,11 @@ class InputDirective extends BaseDirective
 
             $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
             $stringSections['type'] = isset($stringSections['type']) ? $stringSections['type'] : $type;
-            $stringSections['class'] = $this->helper->wrapperClass($stringSections['name'], $wrapperClass);
+            $stringSections['class'] = $this->helper->wrapperClass($stringSections, $wrapperClass);
             if ($hasLogic) $stringSections = $stringSections + $this->helper->htmlParametersAssigner($givenLogicParameters, $validLogicParameters);
 
             $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);
-            $labeling = $this->elements->labeling($stringSections, $id, $this->labeling, $this->autoLabel, $isRequired);
+            $labeling = $this->elements->labeling($stringSections, $this->labeling, $this->autoLabel, $isRequired, $id);
             $label = $labeling['label'];
             $placeholder = $labeling['placeholder'];
             $name = $this->attributes->name($stringSections);
