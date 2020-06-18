@@ -13,13 +13,16 @@ class ValidationHelper
         $this->helper = new GeneralHelper();
     }
 
-    public function inputValidationError(array $stringSections, bool $lightMode = false)
+    public function inputValidationError(array $stringSections, string $wrapperErrorClass = null)
     {
         $validationError = null;
-        $class = config('ttm-blade-directives.validation_error_message_class');
+        $class = $wrapperErrorClass . config('ttm-blade-directives.validation_error_message_class');
 
-        if ($lightMode){
-            $name = $stringSections[0];
+        $validation = isset($stringSections['validation']) ? $stringSections['validation'] : false;
+        $name = isset($stringSections['name']) ? $stringSections['name'] : false;
+        if ($validation) $class = $this->helper->isOff($validation) ? false : $validation;
+
+        if ($name && $class) {
             $validationError = '
                 <?php 
                     if($errors->has("' . $name . '")){
@@ -31,25 +34,6 @@ class ValidationHelper
                     }
                 ?>
             ';
-        }
-        else{
-            $validation = isset($stringSections['validation']) ? $stringSections['validation'] : false;
-            $name = isset($stringSections['name']) ? $stringSections['name'] : false;
-            if ($validation) $class = $this->helper->isOff($validation) ? false : $validation;
-
-            if ($name && $class) {
-                $validationError = '
-                    <?php 
-                        if($errors->has("' . $name . '")){
-                            echo"
-                                <span class=\"'.$class.'\">
-                                    <strong>".$errors->first("' . $name . '")."</strong>
-                                </span>
-                            ";
-                        }
-                    ?>
-                ';
-            }
         }
 
         return $validationError;

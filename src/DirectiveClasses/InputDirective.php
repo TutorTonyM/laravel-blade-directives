@@ -19,6 +19,7 @@ class InputDirective extends BaseDirective
         $wrapperStart = $wrapperTags['start'];
         $wrapperEnd = $wrapperTags['end'];
         $wrapperClass = $wrapperTags['class'];
+        $wrapperErrorClass = $wrapperTags['error'];
 
         if ($stringIsNotEmpty){
             $validHtmlParameters = ['name', 'label', 'class', 'id', 'attribute', 'value', 'type', 'classes', 'attributes', 'placeholder'];
@@ -44,7 +45,7 @@ class InputDirective extends BaseDirective
             $value = $this->validation->oldValueInput($stringSections);
             $inputType = isset($stringSections['type']) ? $this->attributes->type($stringSections) : $inputType;
             $data = $this->helper->attributePlacer([$id, $inputType, $class, $name, $value, $placeholder, $attribute, $required]);
-            $validationError = $this->validation->inputValidationError($stringSections);
+            $validationError = $this->validation->inputValidationError($stringSections, $wrapperErrorClass);
         }
 
         return "

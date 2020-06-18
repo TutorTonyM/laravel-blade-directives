@@ -90,11 +90,13 @@ class GeneralHelper
                 $wrapperTags['start'] = '<div class="form-group">';
                 $wrapperTags['end'] = '</div>';
                 $wrapperTags['class'] = 'form-control ';
+                $wrapperTags['error'] = 'invalid-feedback ';
                 break;
             default:
                 $wrapperTags['start'] = null;
                 $wrapperTags['end'] = null;
                 $wrapperTags['class'] = null;
+                $wrapperTags['error'] = null;
         }
         return $wrapperTags;
     }
