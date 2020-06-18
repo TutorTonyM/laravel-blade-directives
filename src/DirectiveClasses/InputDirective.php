@@ -32,7 +32,7 @@ class InputDirective extends BaseDirective
 
             $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
             $stringSections['type'] = isset($stringSections['type']) ? $stringSections['type'] : $type;
-            $stringSections['class'] = $wrapperClass ?? null;
+            $stringSections['class'] = $this->helper->wrapperClass($stringSections['name'], $wrapperClass);
             if ($hasLogic) $stringSections = $stringSections + $this->helper->htmlParametersAssigner($givenLogicParameters, $validLogicParameters);
 
             $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);

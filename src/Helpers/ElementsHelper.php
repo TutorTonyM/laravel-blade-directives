@@ -31,7 +31,7 @@ class ElementsHelper
                 $id = is_null($idValue) ? null : "id='".$this->attributes->singleId($idValue)."'";
 
                 $attributesValue = $this->helper->between($tagData, '[', ']');
-                $attributes = $attributesValue ?? null;
+                $attributes = $attributesValue;
 
                 $tag = trim($tagData);
                 $tag = str_replace(['.', '#', '[', ']', $classValue, $idValue, $attributesValue],'', $tag);
@@ -124,7 +124,7 @@ class ElementsHelper
                 $id = is_null($idValue) ? null : "id='".$this->attributes->singleId($idValue)."'";
 
                 $attributesValue = $this->helper->between($tagData, '[', ']');
-                $attributes = $attributesValue ?? null;
+                $attributes = $attributesValue;
 
                 $tag = trim($tagData);
                 $tag = str_replace(['.', '#', '[', ']', $classValue, $idValue, $attributesValue],'', $tag);

@@ -9,7 +9,7 @@ class GeneralHelper
 {
     public function nullOrValue(string $value)
     {
-        $item = $value ?? null;
+        $item = $value;
         $item = trim($item);
         $item = $item == null || $item == 'null' || $item == 'Null' || $item == 'NULL' ? null : $item;
         return $item;
@@ -99,6 +99,13 @@ class GeneralHelper
                 $wrapperTags['error'] = null;
         }
         return $wrapperTags;
+    }
+
+    public function wrapperClass($name, $class)
+    {
+        return isset($name)
+            ? $class . '<?php if($errors->has("'.$name.'")){ echo "is-invalid "; } ?>'
+            : $class;
     }
 
     private function escapeEquals(string $string)
