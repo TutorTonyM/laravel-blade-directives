@@ -4,6 +4,7 @@
 namespace TutorTonyM\BladeDirectives\Helpers;
 
 use Illuminate\Support\Str;
+use function Couchbase\defaultDecoder;
 
 class AttributesHelper
 {
@@ -70,21 +71,23 @@ class AttributesHelper
         return null;
     }
 
-    public function placeholder(array $parametersArray)
+    public function placeholder(array $parametersArray, bool $isRequired)
     {
-        return $this->attributeAndValue($parametersArray, 'label');
+        $addon = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
+        return $this->attributeAndValue($parametersArray, 'label', $addon);
     }
 
-    public function autoPlaceholder(array $parametersArray)
+    public function autoPlaceholder(array $parametersArray, bool $isRequired)
     {
+        $required = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
         $placeholder = isset($parametersArray['label']) ? $parametersArray['label'] : false;
         if ($placeholder && !is_null($value = $this->helper->nullOrValue($placeholder))){
-            return "placeholder='$value'";
+            return "placeholder='$value$required'";
         }
         $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
             $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
-            return "placeholder='$value'";
+            return "placeholder='$value$required'";
         }
         return null;
     }
@@ -105,14 +108,14 @@ class AttributesHelper
         return null;
     }
 
-    private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)
+    private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null, string $addon = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         if (!$section && !is_null($default)) $section = $default;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
             if (!is_null($remove)) {$parameter = substr($parameter, 0, strrpos($parameter, (string)$remove));}
             if ($parameter == 'id') $value = $this->singleId($value);
-            return "$parameter='$value'";
+            return "$parameter='$value$addon'";
         }
         return null;
     }

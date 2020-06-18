@@ -85,29 +85,31 @@ class ElementsHelper
         return "<?php echo csrf_field(); ?>";
     }
 
-    public function label(array $parametersArray, string $id = null)
+    public function label(array $parametersArray, bool $isRequired, string $id = null)
     {
+        $addon = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
         $id = $this->helper->between($id, '"');
         $for = is_null($id) ? null : "for='$id'";
-        return $this->elementMaker($parametersArray, 'label', 'label', $for);
+        return $this->elementMaker($parametersArray, 'label', 'label', $for, $addon);
     }
 
-    public function autoLabel(array $parametersArray, string $id)
+    public function autoLabel(array $parametersArray, bool $isRequired, string $id)
     {
+        $required = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
         $label = isset($parametersArray['label']) ? $parametersArray['label'] : false;
         if ($label && !is_null($value = $this->helper->nullOrValue($label))){
-            return $this->label($parametersArray, $id);
+            return $this->label($parametersArray, $isRequired, $id);
         }
         $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
             $id = $this->helper->between($id, '"');
             $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
-            return "<label for='$id'>$value</label>";
+            return "<label for='$id'>$value$required</label>";
         }
         return null;
     }
 
-    private function elementMaker(array $parametersArray, string $parameter, string $defaultElement = 'div', string $additionalAttributes = null)
+    private function elementMaker(array $parametersArray, string $parameter, string $defaultElement = 'div', string $additionalAttributes = null, string $addons = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
@@ -129,38 +131,38 @@ class ElementsHelper
                 $tag = $tag == 'l' ? 'label' : $tag;
                 $value = trim($titleArray[1]);
 
-                return "<$tag $id $class $attributes $additionalAttributes>$value</$tag>";
+                return "<$tag $id $class $attributes $additionalAttributes>$value$addons</$tag>";
             }
             else{
-                return "<$defaultElement $additionalAttributes>$value</$defaultElement>";
+                return "<$defaultElement $additionalAttributes>$value$addons</$defaultElement>";
             }
         }
         return null;
     }
 
-    public function labeling(array $parametersArray, string $id, string $labeling, bool $autoLabel)
+    public function labeling(array $parametersArray, string $id, string $labeling, bool $autoLabel, bool $isRequired)
     {
         $result = [];
 
         if ($labeling == 'label'){
             $result['label'] = $autoLabel
-                ? $this->autoLabel($parametersArray, $id)
-                : $this->Label($parametersArray, $id);
+                ? $this->autoLabel($parametersArray, $isRequired, $id)
+                : $this->Label($parametersArray, $isRequired, $id);
             $result['placeholder'] = null;
         }
         elseif($labeling == 'placeholder'){
             $result['label'] = null;
             $result['placeholder'] = $autoLabel
-                ? $this->attributes->autoPlaceholder($parametersArray)
-                : $this->attributes->placeholder($parametersArray);
+                ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                : $this->attributes->placeholder($parametersArray, $isRequired);
         }
         elseif($labeling == 'both'){
             $result['label'] = $autoLabel
-                ? $this->autoLabel($parametersArray, $id)
-                : $this->Label($parametersArray, $id);
+                ? $this->autoLabel($parametersArray, $isRequired, $id)
+                : $this->Label($parametersArray, $isRequired, $id);
             $result['placeholder'] = $autoLabel
-                ? $this->attributes->autoPlaceholder($parametersArray)
-                : $this->attributes->placeholder($parametersArray);
+                ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                : $this->attributes->placeholder($parametersArray, $isRequired);
         }
         else{
             $result['placeholder'] = null;

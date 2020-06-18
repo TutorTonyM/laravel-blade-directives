@@ -72,4 +72,15 @@ return [
    |
    */
     'validation_error_message_class' => 'error',
+
+    /*
+   |--------------------------------------------------------------------------
+   | Required Field Marker
+   |--------------------------------------------------------------------------
+   |
+   | This value sets the marker used to represent a required field.
+   | Leave it blank ('') if you do not want a marker.
+   |
+   */
+    'required_field_marker' => '*',
 ];
