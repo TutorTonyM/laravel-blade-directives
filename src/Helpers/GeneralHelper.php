@@ -9,7 +9,7 @@ class GeneralHelper
 {
     public function nullOrValue(string $value)
     {
-        $item = $value ?? null;
+        $item = $value;
         $item = trim($item);
         $item = $item == null || $item == 'null' || $item == 'Null' || $item == 'NULL' ? null : $item;
         return $item;
@@ -90,13 +90,40 @@ class GeneralHelper
                 $wrapperTags['start'] = '<div class="form-group">';
                 $wrapperTags['end'] = '</div>';
                 $wrapperTags['class'] = 'form-control ';
+                $wrapperTags['error'] = 'invalid-feedback ';
                 break;
             default:
                 $wrapperTags['start'] = null;
                 $wrapperTags['end'] = null;
                 $wrapperTags['class'] = null;
+                $wrapperTags['error'] = null;
         }
         return $wrapperTags;
+    }
+
+    public function wrapperClass(array $givenParametersArray, string $class = null)
+    {
+
+        if(!is_null($class) && isset($givenParametersArray['class']) && isset($givenParametersArray['name'])){
+            return $class
+                . '<?php if($errors->has("'.$givenParametersArray['name'].'")){ echo "is-invalid "; } ?>'
+                . $givenParametersArray['class'];
+        }
+        elseif(!is_null($class) && isset($givenParametersArray['name'])){
+            return $class . '<?php if($errors->has("'.$givenParametersArray['name'].'")){ echo "is-invalid "; } ?>';
+        }
+        elseif(!is_null($class) && isset($givenParametersArray['class'])){
+            return $class . $givenParametersArray['class'];
+        }
+        elseif(!is_null($class)){
+            return $class;
+        }
+        elseif (isset($givenParametersArray['class'])){
+            return $givenParametersArray['class'];
+        }
+        else{
+            return null;
+        }
     }
 
     private function escapeEquals(string $string)

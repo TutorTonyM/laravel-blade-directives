@@ -108,14 +108,14 @@ class AttributesHelper
         return null;
     }
 
-    private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null, string $addon = null)
+    private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         if (!$section && !is_null($default)) $section = $default;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
             if (!is_null($remove)) {$parameter = substr($parameter, 0, strrpos($parameter, (string)$remove));}
             if ($parameter == 'id') $value = $this->singleId($value);
-            return "$parameter='$value$addon'";
+            return "$parameter='$value'";
         }
         return null;
     }
