@@ -33,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "TutorTonyM\\LaravelBladeDirectives\\": "src/"
+            "TutorTonyM\\BladeDirectives\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "TutorTonyM\\LaravelBladeDirectives\\TtmBladeDirectivesServiceProvider"
+                "TutorTonyM\\BladeDirectives\\TtmBladeDirectivesServiceProvider"
             ]
         }
     },

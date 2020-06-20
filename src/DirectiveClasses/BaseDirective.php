@@ -1,13 +1,13 @@
 <?php
 
 
-namespace TutorTonyM\LaravelBladeDirectives\DirectiveClasses;
+namespace TutorTonyM\BladeDirectives\DirectiveClasses;
 
 use Illuminate\Support\Str;
-use TutorTonyM\LaravelBladeDirectives\Helpers\AttributesHelper;
-use TutorTonyM\LaravelBladeDirectives\Helpers\ElementsHelper;
-use TutorTonyM\LaravelBladeDirectives\Helpers\GeneralHelper;
-use TutorTonyM\LaravelBladeDirectives\Helpers\ValidationHelper;
+use TutorTonyM\BladeDirectives\Helpers\AttributesHelper;
+use TutorTonyM\BladeDirectives\Helpers\ElementsHelper;
+use TutorTonyM\BladeDirectives\Helpers\GeneralHelper;
+use TutorTonyM\BladeDirectives\Helpers\ValidationHelper;
 
 class BaseDirective
 {

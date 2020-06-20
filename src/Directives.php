@@ -1,7 +1,7 @@
 <?php
 
-use TutorTonyM\LaravelBladeDirectives\DirectiveClasses\FormDirective;
-use TutorTonyM\LaravelBladeDirectives\DirectiveClasses\InputDirective;
+use TutorTonyM\BladeDirectives\DirectiveClasses\FormDirective;
+use TutorTonyM\BladeDirectives\DirectiveClasses\InputDirective;
 
 return [
     'form' => function ($string){

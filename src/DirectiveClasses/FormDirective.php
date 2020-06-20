@@ -1,7 +1,7 @@
 <?php
 
 
-namespace TutorTonyM\LaravelBladeDirectives\DirectiveClasses;
+namespace TutorTonyM\BladeDirectives\DirectiveClasses;
 
 
 class FormDirective extends BaseDirective

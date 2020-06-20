@@ -1,7 +1,7 @@
 <?php
 
 
-namespace TutorTonyM\LaravelBladeDirectives\Helpers;
+namespace TutorTonyM\BladeDirectives\Helpers;
 
 
 class ValidationHelper
