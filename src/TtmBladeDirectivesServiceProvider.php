@@ -1,6 +1,6 @@
 <?php
 
-namespace TutorTonyM\BladeDirectives;
+namespace TutorTonyM\LaravelBladeDirectives;
 
 use Blade;
 use Illuminate\Support\ServiceProvider;

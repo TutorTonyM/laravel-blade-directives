@@ -1,7 +1,7 @@
 <?php
 
 
-namespace TutorTonyM\BladeDirectives\Helpers;
+namespace TutorTonyM\LaravelBladeDirectives\Helpers;
 
 use Illuminate\Support\Str;
 

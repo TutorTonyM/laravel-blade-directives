@@ -19,12 +19,11 @@
         "create-forms",
         "ttm-forms"
     ],
-    "homepage": "https://github.com/tutortonym/laravel-blade-directives",
+    "homepage": "https://tutortonym.com/packages/laravel/laravel-blade-directives",
     "authors": [
         {
             "name": "Tutor Tony M",
             "email": "tonym@tutortonym.com",
-            "homepage": "https://tutortonym.com/comunity/tutortonym",
             "role": "Developer"
         }
     ],
@@ -34,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "TutorTonyM\\BladeDirectives\\": "src/"
+            "TutorTonyM\\LaravelBladeDirectives\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "TutorTonyM\\BladeDirectives\\TtmBladeDirectivesServiceProvider"
+                "TutorTonyM\\LaravelBladeDirectives\\TtmBladeDirectivesServiceProvider"
             ]
         }
     },
