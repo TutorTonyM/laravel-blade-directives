@@ -44,7 +44,7 @@ In this example we are using the directive with the action option. The value giv
 the name of a route in your project. This is how it should be used, however, you are not limited
 to using route names. Look below for other url options.
 
-* action = the route name for the form submintion
+* action = the route name for the form submission
 
 ```blade
 @form(login)
