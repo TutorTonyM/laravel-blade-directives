@@ -1,5 +1,6 @@
 <?php
 
+use TutorTonyM\BladeDirectives\DirectiveClasses\ButtonDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\FormDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\InputDirective;
 
@@ -74,5 +75,157 @@ return [
     'hidden' => function($string){
         $input = new InputDirective();
         return $input->make($string, false, 'hidden');
-    }
+    },
+    'button' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string);
+    },
+    'b4_button' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn');
+    },
+    'b4_button_primary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-primary');
+    },
+    'b4_button_secondary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-secondary');
+    },
+    'b4_button_success' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-success');
+    },
+    'b4_button_danger' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-danger');
+    },
+    'b4_button_warning' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-warning');
+    },
+    'b4_button_info' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-info');
+    },
+    'b4_button_light' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-light');
+    },
+    'b4_button_dark' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-dark');
+    },
+    'b4_button_link' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-link');
+    },
+    'b4_button_outlinePrimary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-primary');
+    },
+    'b4_button_outlineSecondary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-secondary');
+    },
+    'b4_button_outlineSuccess' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-success');
+    },
+    'b4_button_outlineDanger' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-danger');
+    },
+    'b4_button_outlineWarning' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-warning');
+    },
+    'b4_button_outlineInfo' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-info');
+    },
+    'b4_button_outlineLight' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-light');
+    },
+    'b4_button_outlineDark' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'button', 'btn btn-outline-dark');
+    },
+    'submit' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit');
+    },
+    'b4_submit' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn');
+    },
+    'b4_submit_primary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-primary');
+    },
+    'b4_submit_secondary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-secondary');
+    },
+    'b4_submit_success' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-success');
+    },
+    'b4_submit_danger' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-danger');
+    },
+    'b4_submit_warning' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-warning');
+    },
+    'b4_submit_info' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-info');
+    },
+    'b4_submit_light' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-light');
+    },
+    'b4_submit_dark' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-dark');
+    },
+    'b4_submit_link' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-link');
+    },
+    'b4_submit_outlinePrimary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-primary');
+    },
+    'b4_submit_outlineSecondary' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-secondary');
+    },
+    'b4_submit_outlineSuccess' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-success');
+    },
+    'b4_submit_outlineDanger' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-danger');
+    },
+    'b4_submit_outlineWarning' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-warning');
+    },
+    'b4_submit_outlineInfo' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-info');
+    },
+    'b4_submit_outlineLight' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-light');
+    },
+    'b4_submit_outlineDark' => function($string){
+        $button = new ButtonDirective();
+        return $button->make($string, 'submit', 'btn btn-outline-dark');
+    },
 ];

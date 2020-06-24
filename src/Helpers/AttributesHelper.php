@@ -108,6 +108,11 @@ class AttributesHelper
         return null;
     }
 
+    public function text($parametersArray)
+    {
+        return $this->verbatim($parametersArray, 'text');
+    }
+
     private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;

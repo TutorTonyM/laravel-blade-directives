@@ -45,7 +45,7 @@ return [
     | It does not apply to <form> tags.
     |
     */
-    'labeling' => 'both',
+    'labeling' => 'placeholder',
 
     /*
     |--------------------------------------------------------------------------
@@ -83,4 +83,26 @@ return [
    |
    */
     'required_field_marker' => '*',
+
+    /*
+   |--------------------------------------------------------------------------
+   | Button type=button default text
+   |--------------------------------------------------------------------------
+   |
+   | This value sets the default value for a button type=button element.
+   | Leave it blank ('') if you do not want a default text.
+   |
+   */
+    'button_default_text' => 'Click',
+
+    /*
+   |--------------------------------------------------------------------------
+   | Button type=submit default text
+   |--------------------------------------------------------------------------
+   |
+   | This value sets the default value for a button type=submit element.
+   | Leave it blank ('') if you do not want a default text.
+   |
+   */
+    'submit_default_text' => 'Submit',
 ];
