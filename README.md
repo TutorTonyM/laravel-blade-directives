@@ -23,6 +23,7 @@ The package will automatically register itself and it will be ready to use.
 
 ## Available Directives
   
+* @button(optional)
 * @email(optional)
 * @endform
 * @form(optional)
