@@ -58,9 +58,9 @@ class AttributesHelper
         return $this->attributeAndValue($parametersArray, 'name');
     }
 
-    public function value(array $parametersArray)
+    public function value(array $parametersArray, string $default)
     {
-        return $this->attributeAndValue($parametersArray, 'value');
+        return $this->attributeAndValue($parametersArray, 'value', $default);
     }
 
     public function type(array $parametersArray)
@@ -126,6 +126,11 @@ class AttributesHelper
     public function text($parametersArray)
     {
         return $this->verbatim($parametersArray, 'text');
+    }
+
+    public function checked($parametersArray)
+    {
+        return $this->verbatim($parametersArray, 'checked', true);
     }
 
     private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)

@@ -1,6 +1,7 @@
 <?php
 
 use TutorTonyM\BladeDirectives\DirectiveClasses\ButtonDirective;
+use TutorTonyM\BladeDirectives\DirectiveClasses\CheckboxDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\FormDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\InputDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\TextareaDirective;
@@ -244,5 +245,17 @@ return [
     'b4_textarea_req' => function($string){
         $button = new TextareaDirective();
         return $button->make($string, true, 'b4');
+    },
+    'checkbox' => function($string){
+        $button = new CheckboxDirective();
+        return $button->make($string);
+    },
+    'checkbox_req' => function($string){
+        $button = new CheckboxDirective();
+        return $button->make($string, true);
+    },
+    'b4_checkbox' => function($string){
+        $button = new CheckboxDirective();
+        return $button->make($string, false, 'b4');
     },
 ];

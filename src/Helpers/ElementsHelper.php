@@ -140,35 +140,56 @@ class ElementsHelper
         return null;
     }
 
-    public function labeling(array $parametersArray, string $labeling, bool $autoLabel, bool $isRequired, string $id = null)
+    public function labeling(array $parametersArray, string $labeling, bool $autoLabel, bool $isRequired, string $id = null, string $element = null)
     {
         $result = [];
 
-        if ($labeling == 'label'){
+        if (is_null($element)){
+            if ($labeling == 'label'){
+                $result['label'] = $autoLabel
+                    ? $this->autoLabel($parametersArray, $isRequired, $id)
+                    : $this->Label($parametersArray, $isRequired, $id);
+                $result['placeholder'] = null;
+            }
+            elseif($labeling == 'placeholder'){
+                $result['label'] = null;
+                $result['placeholder'] = $autoLabel
+                    ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                    : $this->attributes->placeholder($parametersArray, $isRequired);
+            }
+            elseif($labeling == 'both'){
+                $result['label'] = $autoLabel
+                    ? $this->autoLabel($parametersArray, $isRequired, $id)
+                    : $this->Label($parametersArray, $isRequired, $id);
+                $result['placeholder'] = $autoLabel
+                    ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                    : $this->attributes->placeholder($parametersArray, $isRequired);
+            }
+            else{
+                $result['placeholder'] = null;
+                $result['label'] = null;
+            }
+        }
+        elseif ($element == 'checkbox' || $element == 'radio'){
             $result['label'] = $autoLabel
                 ? $this->autoLabel($parametersArray, $isRequired, $id)
                 : $this->Label($parametersArray, $isRequired, $id);
             $result['placeholder'] = null;
-        }
-        elseif($labeling == 'placeholder'){
-            $result['label'] = null;
-            $result['placeholder'] = $autoLabel
-                ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
-                : $this->attributes->placeholder($parametersArray, $isRequired);
-        }
-        elseif($labeling == 'both'){
-            $result['label'] = $autoLabel
-                ? $this->autoLabel($parametersArray, $isRequired, $id)
-                : $this->Label($parametersArray, $isRequired, $id);
-            $result['placeholder'] = $autoLabel
-                ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
-                : $this->attributes->placeholder($parametersArray, $isRequired);
-        }
-        else{
-            $result['placeholder'] = null;
-            $result['label'] = null;
         }
 
         return $result;
+    }
+
+    public function checkboxHiddenInputCreator($parametersArray, $parameter)
+    {
+        $value = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
+        $name = isset($parametersArray['name']) ? $parametersArray['name'] : false;
+        if ($value && $this->isOff($value)){
+            return null;
+        }
+        if ($name){
+            return "<input type='hidden' name='$name' value='0'>";
+        }
+        return null;
     }
 }

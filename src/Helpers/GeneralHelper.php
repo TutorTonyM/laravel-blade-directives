@@ -82,15 +82,29 @@ class GeneralHelper
         return $result;
     }
 
-    public function wrapper(string $wrapper = null)
+    public function wrapper(string $wrapper = null, string $element = null)
     {
+        $error = 'invalid-feedback ';
+        $end = '</div>';
+
+        switch ($element){
+            case 'checkbox':
+                $start = '<div class="form-group form-check">';
+                $class = 'form-check-input ';
+                break;
+            default:
+                $start = '<div class="form-group">';
+                $class = 'form-control ';
+                break;
+        }
+
         $wrapperTags = [];
         switch ($wrapper){
             case 'b4':
-                $wrapperTags['start'] = '<div class="form-group">';
-                $wrapperTags['end'] = '</div>';
-                $wrapperTags['class'] = 'form-control ';
-                $wrapperTags['error'] = 'invalid-feedback ';
+                $wrapperTags['start'] = $start;
+                $wrapperTags['end'] = $end;
+                $wrapperTags['class'] = $class;
+                $wrapperTags['error'] = $error;
                 break;
             default:
                 $wrapperTags['start'] = null;
@@ -123,6 +137,31 @@ class GeneralHelper
         }
         else{
             return null;
+        }
+    }
+
+    public function twoTagsOrganizer($parametersArray, $parameter, $static, $floater, $default = null)
+    {
+        $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
+        if (!$section && !is_null($default)) $section = $default;
+        switch ($section){
+            case 'left':
+                return $floater.'&nbsp;'.$static;
+                break;
+            case 'right':
+                return $static.'&nbsp;'.$floater;
+                break;
+            case 'over':
+            case 'top':
+                return $floater.'<br>'.$static;
+                break;
+            case 'under':
+            case 'bottom':
+                return $static.'<br>'.$floater;
+                break;
+            default:
+                return $static.'&nbsp;'.$floater;
+                break;
         }
     }
 

@@ -92,4 +92,27 @@ class ValidationHelper
 
         return null;
     }
+
+    public function oldValueCheckbox(array $stringSections)
+    {
+        $value = isset($stringSections['oldValue']) ? $stringSections['oldValue'] : false;
+        $name = isset($stringSections['name']) ? $stringSections['name'] : false;
+        $variable = isset($stringSections['variable']) ? $stringSections['variable'] : false;
+
+        if ($value && $this->helper->isOff($value)){
+            return null;
+        }
+
+        if ($variable){
+            if (($name && !$value) || ($name && is_null($this->helper->nullOrValue($value)))){
+                return "<?php echo e(old(\"$name\") ? \"checked\" : \"\"); echo e($$variable->$name ? \"checked\" : \"\"); ?>";
+            }
+        }
+
+        if (($name && !$value) || ($name && is_null($this->helper->nullOrValue($value)))){
+            return "<?php echo e(old(\"$name\") ? \"checked\" : \"\"); ?>";
+        }
+
+        return null;
+    }
 }
