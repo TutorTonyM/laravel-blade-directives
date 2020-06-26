@@ -19,9 +19,24 @@ class AttributesHelper
     {
         $section = isset($parametersArray['action']) ? $parametersArray['action'] : false;
         if ($section && !is_null($value = $this->helper->nullOrValue($section))){
+            $attributesString = $this->helper->between($value, '[', ']');
+            $attributesArray = explode(';', $attributesString);
+            $value = str_replace(['[', ']', $attributesString], '', $value);
+
+            if (count($attributesArray) <= 0 || isset($attributesArray[0]) && $attributesArray[0] == '') {
+                $attributes = null;
+            }
+            elseif (count($attributesArray) == 1) {
+                $attributes = ', '.$attributesString;
+            }
+            else {
+                $attributesString = str_replace([':', ';'], ['=>', ','], $attributesString);
+                $attributes = ', ['.$attributesString.']';
+            }
+
             if (Str::startsWith($value, '/')) return "action='$value'";
             if (Str::startsWith($value, '*')) return "action='".Str::replaceFirst('*', '', $value)."'";
-            return "action='<?php echo e(route('$value')); ?>'";
+            return "action='<?php echo e(route('$value'$attributes)); ?>'";
         }
         return null;
     }
