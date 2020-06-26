@@ -65,4 +65,31 @@ class ValidationHelper
 
         return null;
     }
+
+    public function oldValueTextarea(array $stringSections)
+    {
+        $value = isset($stringSections['oldValue']) ? $stringSections['oldValue'] : false;
+        $name = isset($stringSections['name']) ? $stringSections['name'] : false;
+        $variable = isset($stringSections['variable']) ? $stringSections['variable'] : false;
+
+        if ($value && $this->helper->isOff($value)){
+            return null;
+        }
+
+        if ($value && !is_null($this->helper->nullOrValue($value))){
+            return $value;
+        }
+
+        if ($variable){
+            if (($name && !$value) || ($name && is_null($this->helper->nullOrValue($value)))){
+                return "<?php echo e(old(\"$name\") ?? $$variable->$name); ?>";
+            }
+        }
+
+        if (($name && !$value) || ($name && is_null($this->helper->nullOrValue($value)))){
+            return "<?php echo e(old(\"$name\")); ?>";
+        }
+
+        return null;
+    }
 }

@@ -3,6 +3,7 @@
 use TutorTonyM\BladeDirectives\DirectiveClasses\ButtonDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\FormDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\InputDirective;
+use TutorTonyM\BladeDirectives\DirectiveClasses\TextareaDirective;
 
 return [
     'form' => function ($string){
@@ -227,5 +228,9 @@ return [
     'b4_submit_outlineDark' => function($string){
         $button = new ButtonDirective();
         return $button->make($string, 'submit', 'btn btn-outline-dark');
+    },
+    'textarea' => function($string){
+        $button = new TextareaDirective();
+        return $button->make($string);
     },
 ];

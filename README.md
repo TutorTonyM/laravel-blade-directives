@@ -31,8 +31,9 @@ The package will automatically register itself and it will be ready to use.
 * @input(optional)
 * @number(optional)
 * @password(optional)
+* @textarea(optional)
 
-Select directive coming in the versions. `<select>`
+More directives to be added in the upcoming versions.
 
 
 ## How to Use
