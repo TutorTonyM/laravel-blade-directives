@@ -233,4 +233,16 @@ return [
         $button = new TextareaDirective();
         return $button->make($string);
     },
+    'textarea_req' => function($string){
+        $button = new TextareaDirective();
+        return $button->make($string, true);
+    },
+    'b4_textarea' => function($string){
+        $button = new TextareaDirective();
+        return $button->make($string, false, 'b4');
+    },
+    'b4_textarea_req' => function($string){
+        $button = new TextareaDirective();
+        return $button->make($string, true, 'b4');
+    },
 ];
