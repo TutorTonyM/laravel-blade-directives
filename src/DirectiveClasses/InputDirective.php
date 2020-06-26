@@ -21,18 +21,13 @@ class InputDirective extends BaseDirective
         $wrapperErrorClass = $wrapperTags['error'];
 
         if ($stringIsNotEmpty){
-            $validHtmlParameters = ['name', 'label', 'class', 'id', 'attribute', 'value', 'type', 'classes', 'attributes', 'placeholder'];
-            $validLogicParameters = ['variable', 'validation'];
+            $validHtmlParameters = ['name', 'label', 'class', 'id', 'attribute', 'value', 'type', 'variable', 'validation', 'classes', 'attributes', 'placeholder'];
 
-            $stringArray = explode('|', $string);
-            $givenHtmlParameters = explode(',', $stringArray[0]);
-            $hasLogic = isset($stringArray[1]);
-            $givenLogicParameters = $hasLogic ? explode(',', $stringArray[1]) : null;
+            $givenHtmlParameters = explode(',', $string);
 
             $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
             $stringSections['type'] = isset($stringSections['type']) ? $stringSections['type'] : $type;
             $stringSections['class'] = $this->helper->wrapperClass($stringSections, $wrapperClass);
-            if ($hasLogic) $stringSections = $stringSections + $this->helper->htmlParametersAssigner($givenLogicParameters, $validLogicParameters);
 
             $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);
             $labeling = $this->elements->labeling($stringSections, $this->labeling, $this->autoLabel, $isRequired, $id);
