@@ -33,6 +33,7 @@ The package will automatically register itself and it will be ready to use.
 * @number(optional)
 * @password(optional)
 * @radio(optional)
+* @select(optional)
 * @textarea(optional)
 
 More directives to be added in the upcoming versions.
