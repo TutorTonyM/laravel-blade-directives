@@ -24,6 +24,7 @@ The package will automatically register itself and it will be ready to use.
 ## Available Directives
   
 * @button(optional)
+* @checkbox(optional)
 * @email(optional)
 * @endform
 * @form(optional)
@@ -31,6 +32,7 @@ The package will automatically register itself and it will be ready to use.
 * @input(optional)
 * @number(optional)
 * @password(optional)
+* @radio(optional)
 * @textarea(optional)
 
 More directives to be added in the upcoming versions.

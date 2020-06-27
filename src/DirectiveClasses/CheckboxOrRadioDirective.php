@@ -4,12 +4,12 @@
 namespace TutorTonyM\BladeDirectives\DirectiveClasses;
 
 
-class CheckboxDirective extends BaseDirective
+class CheckboxOrRadioDirective extends BaseDirective
 {
-    public function make(string $string, bool $isRequired = false, string $wrapper = null)
+    public function make(string $string, bool $isRequired = false, string $type = null, string $wrapper = null)
     {
         $stringIsNotEmpty = $string == '' ? false : true;
-        $inputType = "type='checkbox'";
+        $inputType = "type='$type'";
         $required = $isRequired ? "required" : null;
         $hidden = null;
         $label = null;
@@ -30,7 +30,7 @@ class CheckboxDirective extends BaseDirective
             $stringSections = $this->helper->htmlParametersAssigner($givenHtmlParameters, $validHtmlParameters);
             $stringSections['class'] = $this->helper->wrapperClass($stringSections, $wrapperClass);
 
-            $hidden = $this->elements->checkboxHiddenInputCreator($stringSections, 'hidden');
+            if ($type == 'checkbox') $hidden = $this->elements->checkboxHiddenInputCreator($stringSections, 'hidden');
             $id = $this->autoId ? $this->attributes->autoId($stringSections) : $this->attributes->id($stringSections);
             $labeling = $this->elements->labeling($stringSections, $this->labeling, $this->autoLabel, $isRequired, $id, 'checkbox');
             $label = $labeling['label'];
