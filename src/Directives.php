@@ -4,6 +4,7 @@ use TutorTonyM\BladeDirectives\DirectiveClasses\ButtonDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\CheckboxOrRadioDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\FormDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\InputDirective;
+use TutorTonyM\BladeDirectives\DirectiveClasses\SelectDirective;
 use TutorTonyM\BladeDirectives\DirectiveClasses\TextareaDirective;
 
 $this->form = new FormDirective();
@@ -11,6 +12,7 @@ $this->input = new InputDirective();
 $this->button = new ButtonDirective();
 $this->textarea = new TextareaDirective();
 $this->checkboxOrRadio = new CheckboxOrRadioDirective();
+$this->select = new SelectDirective();
 
 return [
     'form' => function ($string){
@@ -216,5 +218,17 @@ return [
     },
     'b4_radio_req' => function($string){
         return $this->checkboxOrRadio->make($string, true, 'radio', 'b4');
+    },
+    'select' => function($string){
+        return $this->select->make($string);
+    },
+    'select_req' => function($string){
+        return $this->select->make($string, true);
+    },
+    'b4_select' => function($string){
+        return $this->select->make($string, false, 'b4');
+    },
+    'b4_select_req' => function($string){
+        return $this->select->make($string, true, 'b4');
     },
 ];

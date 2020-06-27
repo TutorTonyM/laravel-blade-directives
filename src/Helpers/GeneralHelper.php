@@ -89,6 +89,7 @@ class GeneralHelper
 
         switch ($element){
             case 'checkbox':
+            case 'radio':
                 $start = '<div class="form-group form-check">';
                 $class = 'form-check-input ';
                 break;

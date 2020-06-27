@@ -93,20 +93,116 @@ class ElementsHelper
         return $this->elementMaker($parametersArray, 'label', 'label', $for, $addon);
     }
 
-    public function autoLabel(array $parametersArray, bool $isRequired, string $id = null)
+    public function autoLabel(array $parametersArray, bool $isRequired, string $id = null, bool $executeOnNull = true)
     {
         $required = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
         $label = isset($parametersArray['label']) ? $parametersArray['label'] : false;
         if ($label && !is_null($value = $this->helper->nullOrValue($label))){
             return $this->label($parametersArray, $isRequired, $id);
         }
-        $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
-        if ($section && !is_null($value = $this->helper->nullOrValue($section))){
-            $id = $this->helper->between($id, "'");
-            $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
-            return "<label for='$id'>$value$required</label>";
+        if ($executeOnNull){
+            $section = isset($parametersArray['name']) ? $parametersArray['name'] : false;
+            if ($section && !is_null($value = $this->helper->nullOrValue($section))){
+                $id = $this->helper->between($id, "'");
+                $value = Str::title(str_replace(['_', '-'], ' ', Str::kebab($value)));
+                return "<label for='$id'>$value$required</label>";
+            }
         }
         return null;
+    }
+
+    public function autoDefaultOption(array $parametersArray, bool $isRequired, string $id = null)
+    {
+        $label = isset($parametersArray['label']) ? $parametersArray['label'] : false;
+        if ($label && !is_null($value = $this->helper->nullOrValue($label))){
+            return $this->defaultOption($parametersArray, $isRequired);
+        }
+        return null;
+    }
+
+    public function defaultOption(array $parametersArray, bool $isRequired)
+    {
+        $addon = $isRequired ? config('ttm-blade-directives.required_field_marker') : null;
+        return $this->elementMaker($parametersArray, 'label', 'option', 'selected disabled value=""', $addon);
+    }
+
+    public function options($parametersArray)
+    {
+        $collectionString = isset($parametersArray['collection']) ? $parametersArray['collection'] : false;
+        if ($collectionString && !is_null($string = $this->helper->nullOrValue($collectionString))){
+            $sub = 2;
+            $collectionArray = explode(':', $collectionString);
+            $collectionSection = $collectionArray[0];
+            $oldValue = $this->optionSelected($parametersArray, 'oldValue');
+            $variable = $this->optionSelected($parametersArray, 'variable');
+            $class = $this->attributes->attributeAndValue($parametersArray, 'class'.$sub, null, $sub);
+            $id = $this->attributes->attributeAndValue($parametersArray, 'id'.$sub, null, $sub);
+            $attribute = $this->attributes->verbatim($parametersArray, 'attribute'.$sub);
+            $collection = Str::startsWith($collectionSection, '$') ? $collectionSection : '$'.$collectionSection;
+            $defaultValue = isset($collectionArray[1]) ? $collectionArray[1] : 'id';
+            $value = ' value=\"$item->'.$defaultValue.'\"';
+            $text = isset($collectionArray[2]) ? '$item->'.$collectionArray[2] : '$item->'.$defaultValue;
+            $oldValueVar = $oldValue ? '$oldValue' : "";
+            $variableVar = $variable ? '$variable' : "";
+            $class = $class ? '$class = "'.$class.'";' : "";
+            $classVar = $class ? '$class' : "";
+            $id = $id ? '$id = "'.$id.'";' : "";
+            $idVar = $id ? '$id' : "";
+            $attribute = $attribute ? '$attribute = "'.$attribute.'";' : "";
+            $attributeVar = $attribute ? '$attribute' : "";
+            return '
+                <?php
+                    foreach ('.$collection.' as $item){
+                    '.$oldValue.$variable.$class.$id.$attribute.'
+                    
+                        echo"
+                            <option'.$value.$idVar.$classVar.$oldValueVar.$variableVar.$attributeVar.'>'.$text.'</option>
+                        ";
+                    }
+                ?>
+            ';
+        }
+
+        $optionsString = isset($parametersArray['option']) ? $parametersArray['option'] : false;
+        $selectedOption = isset($parametersArray['selected']) ? $parametersArray['selected'] : null;
+        if ($optionsString && !is_null($string = $this->helper->nullOrValue($optionsString))){
+            $options = null;
+            $optionsArray = explode(';', $string);
+            foreach ($optionsArray as $item){
+                $optionSections = explode(':', $item);
+                $value = $optionSections[0];
+                $text = isset($optionSections[1]) ? $optionSections[1] : $value;
+                $selected = $this->optionSelector($value, $selectedOption);
+                $option = "<option value='".Str::replaceFirst("*", "", $value)."'$selected>".Str::replaceFirst("*", "", $text)."</option>";
+                $options .= $option;
+            }
+            return $options;
+        }
+
+        return null;
+    }
+
+    private function optionSelected($parametersArray, $parameter)
+    {
+        $result = false;
+        $string = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
+        if ($string && $this->helper->isOff($string)){
+            return $result;
+        }
+        $nameString = isset($parametersArray['name']) ? $parametersArray['name'] : false;
+        if ($nameString && !is_null($name = $this->helper->nullOrValue($nameString))){
+            if ($parameter == 'variable' && !$string) return $result;
+            $value = isset($parametersArray['value']) ? $parametersArray['value'] : 'id';
+            $compare = $parameter == 'variable' ? '$'.$string.'->'.$name : 'e(old("'.$name.'"))';
+            $result = '$'.$parameter.' = '.$compare.' == $item->'.$value.' ? " selected" : "";';
+        }
+        return $result;
+    }
+
+    private function optionSelector($value, $selected)
+    {
+        if (Str::startsWith($value, '*') || $value == $selected) return " selected";
+        return "";
     }
 
     private function elementMaker(array $parametersArray, string $parameter, string $defaultElement = 'div', string $additionalAttributes = null, string $addons = null)
@@ -176,11 +272,37 @@ class ElementsHelper
                 : $this->Label($parametersArray, $isRequired, $id);
             $result['placeholder'] = null;
         }
+        elseif ($element == 'select'){
+            if ($labeling == 'label'){
+                $result['label'] = $autoLabel
+                    ? $this->autoLabel($parametersArray, $isRequired, $id, false)
+                    : $this->Label($parametersArray, $isRequired, $id);
+                $result['placeholder'] = null;
+            }
+            elseif($labeling == 'placeholder'){
+                $result['label'] = null;
+                $result['placeholder'] = $autoLabel
+                    ? $this->attributes->autoDefaultOption($parametersArray, $isRequired)
+                    : $this->defaultOption($parametersArray, $isRequired);
+            }
+            elseif($labeling == 'both'){
+                $result['label'] = $autoLabel
+                    ? $this->autoLabel($parametersArray, $isRequired, $id, false)
+                    : $this->Label($parametersArray, $isRequired, $id);
+                $result['placeholder'] = $autoLabel
+                    ? $this->autoDefaultOption($parametersArray, $isRequired)
+                    : $this->defaultOption($parametersArray, $isRequired);
+            }
+            else{
+                $result['placeholder'] = null;
+                $result['label'] = null;
+            }
+        }
 
         return $result;
     }
 
-    public function checkboxHiddenInputCreator($parametersArray, $parameter)
+    public function checkboxHiddenInputCreator(array $parametersArray, string $parameter)
     {
         $value = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         $name = isset($parametersArray['name']) ? $parametersArray['name'] : false;

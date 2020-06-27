@@ -16,7 +16,7 @@ class CheckboxOrRadioDirective extends BaseDirective
         $validationError = null;
         $data = $this->helper->attributePlacer([$inputType, $required]);
         $elements = "<input $data>$label";
-        $wrapperTags = $this->helper->wrapper($wrapper, "checkbox");
+        $wrapperTags = $this->helper->wrapper($wrapper, $type);
         $wrapperStart = $wrapperTags['start'];
         $wrapperEnd = $wrapperTags['end'];
         $wrapperClass = $wrapperTags['class'];

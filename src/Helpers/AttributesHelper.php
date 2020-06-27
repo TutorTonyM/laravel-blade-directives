@@ -133,7 +133,7 @@ class AttributesHelper
         return $this->verbatim($parametersArray, 'checked', true);
     }
 
-    private function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)
+    public function attributeAndValue(array $parametersArray, string $parameter, string $default = null, string $remove = null)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         if (!$section && !is_null($default)) $section = $default;
@@ -145,7 +145,7 @@ class AttributesHelper
         return null;
     }
 
-    private function verbatim(array $parametersArray, string $parameter, bool $isSwitch = false, bool $switchCheck = true)
+    public function verbatim(array $parametersArray, string $parameter, bool $isSwitch = false, bool $switchCheck = true)
     {
         $section = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
 
