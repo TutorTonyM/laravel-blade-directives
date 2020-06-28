@@ -123,6 +123,11 @@ class AttributesHelper
         return null;
     }
 
+    public function for(array $parametersArray)
+    {
+        return $this->attributeAndValue($parametersArray, 'for');
+    }
+
     public function text($parametersArray)
     {
         return $this->verbatim($parametersArray, 'text');

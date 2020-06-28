@@ -30,6 +30,7 @@ The package will automatically register itself and it will be ready to use.
 * @form(optional)
 * @hidden(optional)
 * @input(optional)
+* @label(optional)
 * @number(optional)
 * @password(optional)
 * @radio(optional)
