@@ -239,63 +239,112 @@ class ElementsHelper
     public function labeling(array $parametersArray, string $labeling, bool $autoLabel, bool $isRequired, string $id = null, string $element = null)
     {
         $result = [];
+        $label = isset($parametersArray['label']) ? $parametersArray['label'] : false;
+        if ($label && !is_null($value = $this->helper->nullOrValue($label))){
+            $labelArray = explode(':', $value);
+            $labelType = $labelArray[0];
+        }
 
-        if (is_null($element)){
-            if ($labeling == 'label'){
+        if ($labelType == 'label' || $labelType == 'l'){
+            if (is_null($element)){
                 $result['label'] = $autoLabel
                     ? $this->autoLabel($parametersArray, $isRequired, $id)
                     : $this->Label($parametersArray, $isRequired, $id);
                 $result['placeholder'] = null;
             }
-            elseif($labeling == 'placeholder'){
-                $result['label'] = null;
-                $result['placeholder'] = $autoLabel
-                    ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
-                    : $this->attributes->placeholder($parametersArray, $isRequired);
-            }
-            elseif($labeling == 'both'){
+            elseif ($element == 'checkbox' || $element == 'radio'){
                 $result['label'] = $autoLabel
                     ? $this->autoLabel($parametersArray, $isRequired, $id)
                     : $this->Label($parametersArray, $isRequired, $id);
-                $result['placeholder'] = $autoLabel
-                    ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
-                    : $this->attributes->placeholder($parametersArray, $isRequired);
-            }
-            else{
                 $result['placeholder'] = null;
-                $result['label'] = null;
             }
-        }
-        elseif ($element == 'checkbox' || $element == 'radio'){
-            $result['label'] = $autoLabel
-                ? $this->autoLabel($parametersArray, $isRequired, $id)
-                : $this->Label($parametersArray, $isRequired, $id);
-            $result['placeholder'] = null;
-        }
-        elseif ($element == 'select'){
-            if ($labeling == 'label'){
+            elseif ($element == 'select'){
                 $result['label'] = $autoLabel
                     ? $this->autoLabel($parametersArray, $isRequired, $id, false)
                     : $this->Label($parametersArray, $isRequired, $id);
                 $result['placeholder'] = null;
             }
-            elseif($labeling == 'placeholder'){
+        }
+        elseif ($labelType == 'placeholder' || $labelType == 'p'){
+            if (is_null($element)){
+                if($labeling == 'placeholder'){
+                    $result['label'] = null;
+                    $result['placeholder'] = $autoLabel
+                        ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                        : $this->attributes->placeholder($parametersArray, $isRequired);
+                }
+            }
+            elseif ($element == 'checkbox' || $element == 'radio'){
                 $result['label'] = null;
-                $result['placeholder'] = $autoLabel
-                    ? $this->attributes->autoDefaultOption($parametersArray, $isRequired)
-                    : $this->defaultOption($parametersArray, $isRequired);
-            }
-            elseif($labeling == 'both'){
-                $result['label'] = $autoLabel
-                    ? $this->autoLabel($parametersArray, $isRequired, $id, false)
-                    : $this->Label($parametersArray, $isRequired, $id);
-                $result['placeholder'] = $autoLabel
-                    ? $this->autoDefaultOption($parametersArray, $isRequired)
-                    : $this->defaultOption($parametersArray, $isRequired);
-            }
-            else{
                 $result['placeholder'] = null;
-                $result['label'] = null;
+            }
+            elseif ($element == 'select'){
+                if($labeling == 'placeholder'){
+                    $result['label'] = null;
+                    $result['placeholder'] = $autoLabel
+                        ? $this->autoDefaultOption($parametersArray, $isRequired)
+                        : $this->defaultOption($parametersArray, $isRequired);
+                }
+            }
+        }
+        else{
+            if (is_null($element)){
+                if ($labeling == 'label'){
+                    $result['label'] = $autoLabel
+                        ? $this->autoLabel($parametersArray, $isRequired, $id)
+                        : $this->Label($parametersArray, $isRequired, $id);
+                    $result['placeholder'] = null;
+                }
+                elseif($labeling == 'placeholder'){
+                    $result['label'] = null;
+                    $result['placeholder'] = $autoLabel
+                        ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                        : $this->attributes->placeholder($parametersArray, $isRequired);
+                }
+                elseif($labeling == 'both'){
+                    $result['label'] = $autoLabel
+                        ? $this->autoLabel($parametersArray, $isRequired, $id)
+                        : $this->Label($parametersArray, $isRequired, $id);
+                    $result['placeholder'] = $autoLabel
+                        ? $this->attributes->autoPlaceholder($parametersArray, $isRequired)
+                        : $this->attributes->placeholder($parametersArray, $isRequired);
+                }
+                else{
+                    $result['placeholder'] = null;
+                    $result['label'] = null;
+                }
+            }
+            elseif ($element == 'checkbox' || $element == 'radio'){
+                $result['label'] = $autoLabel
+                    ? $this->autoLabel($parametersArray, $isRequired, $id)
+                    : $this->Label($parametersArray, $isRequired, $id);
+                $result['placeholder'] = null;
+            }
+            elseif ($element == 'select'){
+                if ($labeling == 'label'){
+                    $result['label'] = $autoLabel
+                        ? $this->autoLabel($parametersArray, $isRequired, $id, false)
+                        : $this->Label($parametersArray, $isRequired, $id);
+                    $result['placeholder'] = null;
+                }
+                elseif($labeling == 'placeholder'){
+                    $result['label'] = null;
+                    $result['placeholder'] = $autoLabel
+                        ? $this->autoDefaultOption($parametersArray, $isRequired)
+                        : $this->defaultOption($parametersArray, $isRequired);
+                }
+                elseif($labeling == 'both'){
+                    $result['label'] = $autoLabel
+                        ? $this->autoLabel($parametersArray, $isRequired, $id, false)
+                        : $this->Label($parametersArray, $isRequired, $id);
+                    $result['placeholder'] = $autoLabel
+                        ? $this->autoDefaultOption($parametersArray, $isRequired)
+                        : $this->defaultOption($parametersArray, $isRequired);
+                }
+                else{
+                    $result['placeholder'] = null;
+                    $result['label'] = null;
+                }
             }
         }
 
@@ -306,7 +355,7 @@ class ElementsHelper
     {
         $value = isset($parametersArray[$parameter]) ? $parametersArray[$parameter] : false;
         $name = isset($parametersArray['name']) ? $parametersArray['name'] : false;
-        if ($value && $this->isOff($value)){
+        if ($value && $this->helper->isOff($value)){
             return null;
         }
         if ($name){
