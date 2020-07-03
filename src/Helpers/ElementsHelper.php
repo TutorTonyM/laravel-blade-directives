@@ -245,7 +245,7 @@ class ElementsHelper
             $labelType = $labelArray[0];
         }
 
-        if ($labelType == 'label' || $labelType == 'l'){
+        if (($label && $labelType == 'label') || ($label && $labelType == 'l')){
             if (is_null($element)){
                 $result['label'] = $autoLabel
                     ? $this->autoLabel($parametersArray, $isRequired, $id)
@@ -265,7 +265,7 @@ class ElementsHelper
                 $result['placeholder'] = null;
             }
         }
-        elseif ($labelType == 'placeholder' || $labelType == 'p'){
+        elseif (($label && $labelType == 'placeholder') || ($label && $labelType == 'p')){
             if (is_null($element)){
                 if($labeling == 'placeholder'){
                     $result['label'] = null;
